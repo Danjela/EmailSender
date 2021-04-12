@@ -16,14 +16,16 @@ class EmailController extends AbstractController
     #[Route('/', name: 'email_index', methods: ['GET'])]
     public function index(EmailRepository $emailRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'User tried to access a page without having ROLE_USER');
         return $this->render('email/index.html.twig', [
-            'emails' => $emailRepository->findAll(),
+            'emails' => $emailRepository->findBy(array('user' => $this->getUser()),$orderBy = null, $limit = null, $offset = null),
         ]);
     }
 
     #[Route('/new', name: 'email_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'User tried to access a page without having ROLE_USER');
         $email = new Email();
         $form = $this->createForm(EmailType::class, $email);
         $form->handleRequest($request);
@@ -46,6 +48,7 @@ class EmailController extends AbstractController
     #[Route('/{id}', name: 'email_show', methods: ['GET'])]
     public function show(Email $email): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'User tried to access a page without having ROLE_USER');
         return $this->render('email/show.html.twig', [
             'email' => $email,
         ]);
@@ -54,6 +57,7 @@ class EmailController extends AbstractController
     #[Route('/{id}/edit', name: 'email_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Email $email): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'User tried to access a page without having ROLE_USER');
         $form = $this->createForm(EmailType::class, $email);
         $form->handleRequest($request);
 
@@ -72,6 +76,7 @@ class EmailController extends AbstractController
     #[Route('/{id}', name: 'email_delete', methods: ['POST'])]
     public function delete(Request $request, Email $email): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER', null, 'User tried to access a page without having ROLE_USER');
         if ($this->isCsrfTokenValid('delete'.$email->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($email);

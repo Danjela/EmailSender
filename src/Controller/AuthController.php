@@ -14,6 +14,7 @@ class AuthController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        $this->denyAccessUnlessGranted('IS_ANONYMOUS');
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }

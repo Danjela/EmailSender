@@ -15,6 +15,7 @@
                 <th>Roles</th>
                 <th>Password</th>
                 <th>IsVerified</th>
+                <th>Emails sent</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -28,6 +29,9 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                 <td>******</td>
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('user_emails', {'id': user.id}) }}">show emails</a>
+                </td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>

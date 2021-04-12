@@ -5,7 +5,24 @@
 {% block body %}
     <h1>Edit User</h1>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ form_start(form) }}
+    <div class="mb-3" class="form-control">
+        {{ form_row(form.firstName) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.lastName) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.roles) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.isVerified) }}
+    </div>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
 
     <a href="{{ path('user_index') }}">back to list</a>
 

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Emails sent{% endblock %}
+
+{% block body %}
+    <h1>Email index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SendTo</th>
+                <th>Subject</th>
+                <th>Body</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for email in emails %}
+            <tr>
+                <td>{{ email.id }}</td>
+                <td>{{ email.sendTo }}</td>
+                <td>{{ email.subject }}</td>
+                <td>{{ email.body }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('user_index') }}">back to list</a>
+{% endblock %}
